@@ -4,6 +4,7 @@ SOURCE_FILE="main.js"
 DEST_FILE="main.build.js"
 PROJECT_FILE="projects.txt"
 
+# write information to 'main.build.js'
 echo "/*" > $DEST_FILE # '>' to overwrite file
 echo "== Google Script Util Library ==" >> $DEST_FILE  # '>>' to append 
 echo "THIS FILE IS PULLED FROM VERSION CONTROL. DO NOT EDIT IT HERE." >> $DEST_FILE
