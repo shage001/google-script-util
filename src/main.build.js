@@ -11,10 +11,10 @@ Projects using some version of this library:
 4. Portfolio Model v1.1
 
 == BUILD INFO ==
-utc: 1436385911117
-utc_print: Wed Jul 08 2015 16:05:11 GMT-0400 (EDT)
+utc: 1436455656789
+utc_print: Thu Jul 09 2015 11:27:36 GMT-0400 (EDT)
 branch: master
-rev: 1269f8dbeb550d731302e25d193d23c04d82aca9
+rev: 76da7b5c022ed744365c15fbf9dcd42078d196e6
 uname: samhage
 */
 
@@ -105,7 +105,8 @@ function splitCell( cell ) {
 function findMatch( startCell, sheet, value ) {
   
   // extract data from desired column to improve speed
-  var range = sheet.getRange( startCell + ":" + startCell.charAt(0) );
+  var startColumn = splitCell( startCell )[0];
+  var range = sheet.getRange( startCell + ":" + startColumn );
   var columnValues = range.getValues();
   
   var count = 0;
@@ -443,4 +444,24 @@ function luDecomposition( inputMatrix ) {
   parts[0] = lower;
   parts[1] = upper;
   return parts;
+}
+
+
+/**
+ * Creates a square array of size nxn representing the identity matrix
+ *
+ * @param {number} n The size of the matrix/array
+ * @return {array[][]} arr The array
+ */
+function createMatrix( n ) {
+  
+  n = Math.floor(n); // make sure it's an integer
+  var arr = new Array(n);
+  for ( var i = 0; i < n; i++ ) {
+    arr[i] = new Array(n);
+    for ( var j = 0; j < n; j++ ) {
+      arr[i][j] = ( i === j ) ? 1 : 0;
+    }
+  }
+  return arr;
 }
