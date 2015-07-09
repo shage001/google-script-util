@@ -11,10 +11,10 @@ Projects using some version of this library:
 4. Portfolio Model v1.1
 
 == BUILD INFO ==
-utc: 1436457651144
-utc_print: Thu Jul 09 2015 12:00:51 GMT-0400 (EDT)
+utc: 1436467910459
+utc_print: Thu Jul 09 2015 14:51:50 GMT-0400 (EDT)
 branch: master
-rev: 4d8f51106025fc7085e5af463d8f7ea8ffaf1e0c
+rev: 95dcbe62f0cc980134e5bfc4c262dd9955a1a77f
 uname: samhage
 */
 
@@ -447,7 +447,7 @@ function luDecomposition( inputMatrix ) {
 }
 
 
-/**
+/**********************************************************************************************************************
  * Creates a square array of size nxn representing the identity matrix
  *
  * @param {number} n The size of the matrix/array

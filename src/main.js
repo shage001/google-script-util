@@ -427,7 +427,7 @@ function luDecomposition( inputMatrix ) {
 }
 
 
-/**
+/**********************************************************************************************************************
  * Creates a square array of size nxn representing the identity matrix
  *
  * @param {number} n The size of the matrix/array
