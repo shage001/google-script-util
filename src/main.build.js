@@ -11,10 +11,10 @@ Projects using some version of this library:
 4. Portfolio Model v1.1
 
 == BUILD INFO ==
-utc: 1436457413202
-utc_print: Thu Jul 09 2015 11:56:53 GMT-0400 (EDT)
+utc: 1436457651144
+utc_print: Thu Jul 09 2015 12:00:51 GMT-0400 (EDT)
 branch: master
-rev: 35b9177d00025fd18e11a2b3fa1258ff2b37bfc7
+rev: 4d8f51106025fc7085e5af463d8f7ea8ffaf1e0c
 uname: samhage
 */
 
@@ -110,7 +110,7 @@ function findMatch( startCell, sheet, value ) {
   var columnValues = range.getValues();
   
   var count = 0;
-  while ( columnValues[count][0] != value ) {
+  while ( columnValues[count][0] !== value ) {
     count++;
   }
   return count + parseInt( startCell.slice(1) );

@@ -85,12 +85,12 @@ function splitCell( cell ) {
 function findMatch( startCell, sheet, value ) {
   
   // extract data from desired column to improve speed
-  var column = splitCell( startColumn )[0];
+  var column = splitCell( startCell )[0];
   var range = sheet.getRange( startCell + ":" + column );
   var columnValues = range.getValues();
   
   var count = 0;
-  while ( columnValues[count][0] != value ) {
+  while ( columnValues[count][0] !== value ) {
     count++;
   }
   return count + parseInt( startCell.slice(1) );
