@@ -11,10 +11,10 @@ Projects using some version of this library:
 4. Portfolio Model v1.1
 
 == BUILD INFO ==
-utc: 1436467910459
-utc_print: Thu Jul 09 2015 14:51:50 GMT-0400 (EDT)
+utc: 1436475565438
+utc_print: Thu Jul 09 2015 16:59:25 GMT-0400 (EDT)
 branch: master
-rev: 95dcbe62f0cc980134e5bfc4c262dd9955a1a77f
+rev: 5a7046848b7ca77e5955bbf67d4c1316267122ff
 uname: samhage
 */
 
@@ -464,4 +464,109 @@ function createMatrix( n ) {
     }
   }
   return arr;
+}
+
+
+/**********************************************************************************************************************/
+/********************                             RANDOM DISTRIBUTIONS                             ********************/
+/**********************************************************************************************************************/
+
+/**********************************************************************************************************************
+ * Generates a uniform random number between min and max, exclusive
+ *
+ * @param {number} min The lower bound
+ * @param {number} max The upper bound
+ * @return {number} uniformRandom The random number
+ */
+function generateUniform( min, max ) {
+  
+  var uniformRandom = ( max - min ) * Math.random() + min;
+  return uniformRandom;
+}
+
+
+/**********************************************************************************************************************
+ * Generates two normally distributed random numbers
+ *
+ * @return {array[]} A tuple of the two random numbers
+ */
+function generateNormals() {
+  
+  // generate u1, u2 independent, identically distributed uniforms (0,1)
+  var u1 = generateUniform( 0, 1 );
+  var u2 = generateUniform( 0, 1 );
+  
+  // generate n1, n2 from them
+  var n1 = Math.sqrt( (-2) * Math.log( u1 ) ) * Math.cos( 2 * Math.PI * u2 );
+  var n2 = Math.sqrt( (-2) * Math.log( u2 ) ) * Math.cos( 2 * Math.PI * u1 );
+  return [ n1, n2 ];
+}
+
+
+/**********************************************************************************************************************
+ * Generates two numbers according to a gamma distribution
+ *
+ * @param {number} alpha Param for one gamma
+ * @param {number} beta Param for the second gamma
+ * @return {array[]} A tuple of the two random numbers
+ */
+function generateGammas( alpha, beta ) {
+ 
+  // initialize as and bs
+  var a1 = alpha - (1/3);
+  var b1 = 1 / Math.sqrt( 9 * a1 );
+  var a2 = beta - (1/3);
+  var b2 = 1 / Math.sqrt( 9 * a2 );
+  
+  // generate normal zs and uniform us
+  var normals = generateNormals();
+  var z1 = normals[0];
+  var u1 = generateUniform( 0, 1 );
+  var z2 = normals[1];
+  var u2 = generateUniform( 0, 1 );
+  
+  // continue to regenerate if necessary
+  var v1 = Math.pow( ( 1 + b1 * z1 ), 3 );
+  var firstCondition = z1 <= (-1 / b1);
+  var secondCondition = Math.log( u1 ) >= ( .5 * Math.pow( z1, 2 ) + a1 - a1 * v1 + a1 * Math.log( v1 ) );
+  
+  while ( firstCondition || secondCondition ) {
+    
+    z1 = normals[0];
+    u1 = generateUniform( 0, 1 );
+    v1 = Math.pow( ( 1 + b1 * z1 ), 3 );
+    firstCondition = z1 < (-1 / b1);
+    secondCondition = Math.log( u1 ) > ( .5 * Math.pow( z1, 2 ) + a1 - a1 * v1 + a1 * Math.log( v1 ) );
+  }
+  var y1 = a1 * v1;
+  
+  var v2 = Math.pow( ( 1 + b2 * z2 ), 3 );
+  firstCondition = z2 <= (-1 / b2);
+  secondCondition = Math.log( u2 ) >= ( .5 * Math.pow( z2, 2 ) + a2 - a2 * v2 + a2 * Math.log( v2 ) );
+  
+  while ( firstCondition || secondCondition ) {
+    
+    z2 = normals[0];
+    u2 = generateUniform( 0, 1 );
+    v2 = Math.pow( ( 1 + b2 * z2 ), 3 );
+    firstCondition = z2 < (-1 / b2);
+    secondCondition = Math.log( u2 ) > ( .5 * Math.pow( z2, 2 ) + a2 - a2 * v2 + a2 * Math.log( v2 ) );
+  }
+  var y2 = a2 * v2;
+  return [ y1, y2 ];
+}
+
+
+/**********************************************************************************************************************
+ * Generates a random number according to a beta distribution
+ *
+ * @return {number} The random number
+ */
+function generateBeta( alpha, beta ) {
+  
+  // generate independent gamma ys
+  var gammas = generateGammas( alpha, beta );
+  var y1 = gammas[0];
+  var y2 = gammas[1];
+  return y1 / (y1 + y2);
 }
