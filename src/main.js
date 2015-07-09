@@ -424,3 +424,23 @@ function luDecomposition( inputMatrix ) {
   parts[1] = upper;
   return parts;
 }
+
+
+/**
+ * Creates a square array of size nxn representing the identity matrix
+ *
+ * @param {number} n The size of the matrix/array
+ * @return {array[][]} arr The array
+ */
+function createMatrix( n ) {
+  
+  n = Math.floor(n); // make sure it's an integer
+  var arr = new Array(n);
+  for ( var i = 0; i < n; i++ ) {
+    arr[i] = new Array(n);
+    for ( var j = 0; j < n; j++ ) {
+      arr[i][j] = ( i === j ) ? 1 : 0;
+    }
+  }
+  return arr;
+}
