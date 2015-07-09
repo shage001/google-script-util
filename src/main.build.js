@@ -11,10 +11,10 @@ Projects using some version of this library:
 4. Portfolio Model v1.1
 
 == BUILD INFO ==
-utc: 1436456993152
-utc_print: Thu Jul 09 2015 11:49:53 GMT-0400 (EDT)
+utc: 1436457413202
+utc_print: Thu Jul 09 2015 11:56:53 GMT-0400 (EDT)
 branch: master
-rev: 557137bef6eb87f264bdcbe8550fd357dc54c1ce
+rev: 35b9177d00025fd18e11a2b3fa1258ff2b37bfc7
 uname: samhage
 */
 
@@ -105,7 +105,7 @@ function splitCell( cell ) {
 function findMatch( startCell, sheet, value ) {
   
   // extract data from desired column to improve speed
-  var column = splitCell( startColumn )[0];
+  var column = splitCell( startCell )[0];
   var range = sheet.getRange( startCell + ":" + column );
   var columnValues = range.getValues();
   
