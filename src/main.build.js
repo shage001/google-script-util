@@ -11,10 +11,10 @@ Projects using some version of this library:
 4. Portfolio Model v1.1
 
 == BUILD INFO ==
-utc: 1436475565438
-utc_print: Thu Jul 09 2015 16:59:25 GMT-0400 (EDT)
+utc: 1436555383391
+utc_print: Fri Jul 10 2015 15:09:43 GMT-0400 (EDT)
 branch: master
-rev: 5a7046848b7ca77e5955bbf67d4c1316267122ff
+rev: 895ff4d528af9bb47b130296ff15b7a4784e2772
 uname: samhage
 */
 
@@ -512,48 +512,39 @@ function generateNormals() {
  */
 function generateGammas( alpha, beta ) {
  
-  // initialize as and bs
-  var a1 = alpha - (1/3);
-  var b1 = 1 / Math.sqrt( 9 * a1 );
-  var a2 = beta - (1/3);
-  var b2 = 1 / Math.sqrt( 9 * a2 );
-  
-  // generate normal zs and uniform us
   var normals = generateNormals();
-  var z1 = normals[0];
-  var u1 = generateUniform( 0, 1 );
-  var z2 = normals[1];
-  var u2 = generateUniform( 0, 1 );
-  
-  // continue to regenerate if necessary
-  var v1 = Math.pow( ( 1 + b1 * z1 ), 3 );
-  var firstCondition = z1 <= (-1 / b1);
-  var secondCondition = Math.log( u1 ) >= ( .5 * Math.pow( z1, 2 ) + a1 - a1 * v1 + a1 * Math.log( v1 ) );
-  
-  while ( firstCondition || secondCondition ) {
-    
-    z1 = normals[0];
-    u1 = generateUniform( 0, 1 );
-    v1 = Math.pow( ( 1 + b1 * z1 ), 3 );
-    firstCondition = z1 < (-1 / b1);
-    secondCondition = Math.log( u1 ) > ( .5 * Math.pow( z1, 2 ) + a1 - a1 * v1 + a1 * Math.log( v1 ) );
-  }
-  var y1 = a1 * v1;
-  
-  var v2 = Math.pow( ( 1 + b2 * z2 ), 3 );
-  firstCondition = z2 <= (-1 / b2);
-  secondCondition = Math.log( u2 ) >= ( .5 * Math.pow( z2, 2 ) + a2 - a2 * v2 + a2 * Math.log( v2 ) );
-  
-  while ( firstCondition || secondCondition ) {
-    
-    z2 = normals[0];
-    u2 = generateUniform( 0, 1 );
-    v2 = Math.pow( ( 1 + b2 * z2 ), 3 );
-    firstCondition = z2 < (-1 / b2);
-    secondCondition = Math.log( u2 ) > ( .5 * Math.pow( z2, 2 ) + a2 - a2 * v2 + a2 * Math.log( v2 ) );
-  }
-  var y2 = a2 * v2;
+  var y1 = generateGamma( alpha, normals[0] );
+  var y2 = generateGamma( beta, normals[1] );
   return [ y1, y2 ];
+}
+
+
+/**********************************************************************************************************************
+ * Generates a random number according to a gamma distribution
+ *
+ * @param {number} alpha Param for the function
+ * @param {number} normal A normal random number (done this way for efficiency)
+ * @return {array[]} The random number
+ */
+function generateGamma( alpha, normal ) {
+  
+  // set a and b
+  var a = alpha - (1/3);
+  var b = 1 / Math.sqrt( 9 * a );
+  // generate z, u and calculate v
+  var z = normal;
+  var u = generateUniform( 0, 1 );
+  var v = Math.pow( ( 1 + b * z ), 3 );
+  
+  // regenerate if necessary
+  while ( true ) {
+    if ( z > ( -1/b ) && Math.log(u) < .5*Math.pow( z, 2 ) + a - a*v + a*Math.log(v) ) {
+      return a * v;
+    }
+    z = generateNormals()[0];
+    u = generateUniform( 0, 1 );
+    v = Math.pow( ( 1 + b * z ), 3 );
+  }
 }
 
 
