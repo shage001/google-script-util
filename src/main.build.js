@@ -11,10 +11,10 @@ Projects using some version of this library:
 4. Portfolio Model v1.1
 
 == BUILD INFO ==
-utc: 1436555383391
-utc_print: Fri Jul 10 2015 15:09:43 GMT-0400 (EDT)
+utc: 1436803256833
+utc_print: Mon Jul 13 2015 12:00:56 GMT-0400 (EDT)
 branch: master
-rev: 895ff4d528af9bb47b130296ff15b7a4784e2772
+rev: 5396d904bc67973e27d3072c2d2e91b19c4fc664
 uname: samhage
 */
 
@@ -133,6 +133,57 @@ function letterToColumn( letter ) {
     column += ( letter.charCodeAt(i) - 64 ) * Math.pow( 26, length - i - 1 );
   }
   return column;
+}
+
+
+/**********************************************************************************************************************
+ * Check if one row is contained in another
+ *
+ * @param {range} innerRange The inner range
+ * @param {range} outerRange The outer range
+ * @return {boolean} True if inner is completely contained in outer (inclusive), false if not
+ */
+function isRangeContained( innerRange, outerRange ) {
+
+  // get range bounds
+  var innerStartRow = innerRange.getRow();
+  var innerStartColumn = innerRange.getColumn();
+  var innerEndRow = innerRange.getLastRow();
+  var innerEndColumn = innerRange.getLastColumn();
+  var outerStartRow = outerRange.getRow();
+  var outerStartColumn = outerRange.getColumn();
+  var outerEndRow = outerRange.getLastRow();
+  var outerEndColumn = outerRange.getLastColumn();
+
+  // check for containment
+  var isContained = innerStartRow >= outerStartRow && innerStartColumn >= outerStartColumn
+                                                   && innerEndRow <= outerEndRow
+                                                   && innerEndColumn <= outerEndColumn;
+  return isContained;
+}
+
+
+/**********************************************************************************************************************
+ * Check if a range is empty
+ *
+ * @param {range} range The range to check for content
+ * @return {boolean} True if the range is empty, false otherwise
+ */
+function isEmpty( range ) {
+
+  var data = range.getValues();
+  var numRows = data.length;
+  var numColumns = data[0].length;
+
+  // return false as soon as content is found
+  for ( var i = 0; i < numRows; i++ ) {
+    for ( var j = 0; j < numColumns; j++ ) {
+      if ( data[i][j] !== "" ) {
+        return false;
+      }
+    }
+  }
+  return true;
 }
 
 

@@ -116,6 +116,33 @@ function letterToColumn( letter ) {
 }
 
 
+/**********************************************************************************************************************
+ * Check if one row is contained in another
+ *
+ * @param {range} innerRange The inner range
+ * @param {range} outerRange The outer range
+ * @return {boolean} True if inner is completely contained in outer (inclusive), false if not
+ */
+function isRangeContained( innerRange, outerRange ) {
+
+  // get range bounds
+  var innerStartRow = innerRange.getRow();
+  var innerStartColumn = innerRange.getColumn();
+  var innerEndRow = innerRange.getLastRow();
+  var innerEndColumn = innerRange.getLastColumn();
+  var outerStartRow = outerRange.getRow();
+  var outerStartColumn = outerRange.getColumn();
+  var outerEndRow = outerRange.getLastRow();
+  var outerEndColumn = outerRange.getLastColumn();
+
+  // check for containment
+  var isContained = innerStartRow >= outerStartRow && innerStartColumn >= outerStartColumn
+                                                   && innerEndRow <= outerEndRow
+                                                   && innerEndColumn <= outerEndColumn;
+  return isContained;
+}
+
+
 /**********************************************************************************************************************/
 /********************                          DATA IMPORT / EXPORT                                ********************/
 /**********************************************************************************************************************/
