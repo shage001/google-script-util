@@ -11,10 +11,10 @@ Projects using some version of this library:
 4. Portfolio Model v1.1
 
 == BUILD INFO ==
-utc: 1436803256833
-utc_print: Mon Jul 13 2015 12:00:56 GMT-0400 (EDT)
+utc: 1436804421022
+utc_print: Mon Jul 13 2015 12:20:21 GMT-0400 (EDT)
 branch: master
-rev: 5396d904bc67973e27d3072c2d2e91b19c4fc664
+rev: 62612d7abd35dbc77bc7e2680f2ad179fa9e0740
 uname: samhage
 */
 

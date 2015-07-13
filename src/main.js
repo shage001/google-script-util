@@ -143,6 +143,30 @@ function isRangeContained( innerRange, outerRange ) {
 }
 
 
+/**********************************************************************************************************************
+ * Check if a range is empty
+ *
+ * @param {range} range The range to check for content
+ * @return {boolean} True if the range is empty, false otherwise
+ */
+function isEmpty( range ) {
+
+  var data = range.getValues();
+  var numRows = data.length;
+  var numColumns = data[0].length;
+
+  // return false as soon as content is found
+  for ( var i = 0; i < numRows; i++ ) {
+    for ( var j = 0; j < numColumns; j++ ) {
+      if ( data[i][j] !== "" ) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
+
 /**********************************************************************************************************************/
 /********************                          DATA IMPORT / EXPORT                                ********************/
 /**********************************************************************************************************************/
