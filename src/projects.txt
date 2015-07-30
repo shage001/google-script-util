@@ -2,3 +2,5 @@
 2. Sandbox
 3. SparkFund File Permissions Tool
 4. Portfolio Model v1.1
+5. Portfolio Model v1.2
+6. Queue Model v1.2

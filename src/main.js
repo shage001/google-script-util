@@ -44,6 +44,23 @@ function deleteTriggers() {
 }
 
 
+/**********************************************************************************************************************
+ * Calculates n choose k using the more efficient multiplicative formula
+ *
+ * @param {number} n
+ * @param {number} k
+ * @return {number} The value of n choose k
+ */
+function choose( n, k ) {
+ 
+  var product = 1;
+  for ( var i = 1; i <= k; i++ ) {
+    product *= ( n + 1 - i ) / i;
+  }
+  return product;
+}
+
+
 /**********************************************************************************************************************/
 /********************                              RANGE INTERACTION                               ********************/
 /**********************************************************************************************************************/
@@ -172,7 +189,7 @@ function isEmpty( range ) {
 /**********************************************************************************************************************/
 
 /**********************************************************************************************************************
- * Sets the values of a range without the stupid default gSheet requirement
+ * Sets the values of a range without the default gSheet requirement
  * that the input data be the exact size of the range
  *
  * @param {range} range The target range in A1 notation
@@ -190,8 +207,8 @@ function smartSetValues( range, data ) {
   if ( numDataRows === numEmptyRows && numDataCols === numEmptyCols ) {
     range.setValues( data );
   }
-  // resize the array with empty values
-  else {
+  // resize the array with empty values if range is absolutely bigger than data
+  else if ( numDataRows < numEmptyRows && numDataCols < numEmptyCols ) {
     var resizedData = new Array( numEmptyRows );
     for ( var i = 0; i < numEmptyRows; i++ ) {
       resizedData[i] = new Array( numEmptyCols );
@@ -205,6 +222,11 @@ function smartSetValues( range, data ) {
       }
     }
     range.setValues( resizedData );
+  }
+  // default to resizing range to fit data if range is smaller in either dimension
+  else {
+    var newRange = range.offset( 0, 0, numDataRows, numDataCols );
+    newRange.setValues( data );
   }
   return range;
 }
@@ -423,8 +445,8 @@ function multiplyMatrices( a, b ) {
   for ( var i = 0; i < aRows; i++ ) {
     productMatrix[i] = new Array( bCols );
   }
-  for ( var i = 0; i < aCols; i++ ) {
-    for ( var j = 0; j < bRows; j++ ) {
+  for ( var i = 0; i < aRows; i++ ) {
+    for ( var j = 0; j < bCols; j++ ) {
       productMatrix[i][j] = 0;
       for ( var k = 0; k < aCols; k++ ) {
         productMatrix[i][j] += a[i][k] * b[k][j];

@@ -9,12 +9,14 @@ Projects using some version of this library:
 2. Sandbox
 3. SparkFund File Permissions Tool
 4. Portfolio Model v1.1
+5. Portfolio Model v1.2
+6. Queue Model v1.2
 
 == BUILD INFO ==
-utc: 1436804421022
-utc_print: Mon Jul 13 2015 12:20:21 GMT-0400 (EDT)
+utc: 1438098681651
+utc_print: Tue Jul 28 2015 11:51:21 GMT-0400 (EDT)
 branch: master
-rev: 62612d7abd35dbc77bc7e2680f2ad179fa9e0740
+rev: 7c901b27c34a986f9c4df0c552102ee076741149
 uname: samhage
 */
 
@@ -61,6 +63,23 @@ function deleteTriggers() {
   for ( var i = 0; i < len; i++ ) {
     ScriptApp.deleteTrigger( triggers[i] );
   }
+}
+
+
+/**********************************************************************************************************************
+ * Calculates n choose k using the more efficient multiplicative formula
+ *
+ * @param {number} n
+ * @param {number} k
+ * @return {number} The value of n choose k
+ */
+function choose( n, k ) {
+ 
+  var product = 1;
+  for ( var i = 1; i <= k; i++ ) {
+    product *= ( n + 1 - i ) / i;
+  }
+  return product;
 }
 
 
@@ -192,7 +211,7 @@ function isEmpty( range ) {
 /**********************************************************************************************************************/
 
 /**********************************************************************************************************************
- * Sets the values of a range without the stupid default gSheet requirement
+ * Sets the values of a range without the default gSheet requirement
  * that the input data be the exact size of the range
  *
  * @param {range} range The target range in A1 notation
@@ -210,8 +229,8 @@ function smartSetValues( range, data ) {
   if ( numDataRows === numEmptyRows && numDataCols === numEmptyCols ) {
     range.setValues( data );
   }
-  // resize the array with empty values
-  else {
+  // resize the array with empty values if range is absolutely bigger than data
+  else if ( numDataRows < numEmptyRows && numDataCols < numEmptyCols ) {
     var resizedData = new Array( numEmptyRows );
     for ( var i = 0; i < numEmptyRows; i++ ) {
       resizedData[i] = new Array( numEmptyCols );
@@ -225,6 +244,11 @@ function smartSetValues( range, data ) {
       }
     }
     range.setValues( resizedData );
+  }
+  // default to resizing range to fit data if range is smaller in either dimension
+  else {
+    var newRange = range.offset( 0, 0, numDataRows, numDataCols );
+    newRange.setValues( data );
   }
   return range;
 }
@@ -443,8 +467,8 @@ function multiplyMatrices( a, b ) {
   for ( var i = 0; i < aRows; i++ ) {
     productMatrix[i] = new Array( bCols );
   }
-  for ( var i = 0; i < aCols; i++ ) {
-    for ( var j = 0; j < bRows; j++ ) {
+  for ( var i = 0; i < aRows; i++ ) {
+    for ( var j = 0; j < bCols; j++ ) {
       productMatrix[i][j] = 0;
       for ( var k = 0; k < aCols; k++ ) {
         productMatrix[i][j] += a[i][k] * b[k][j];
