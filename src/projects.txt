@@ -4,3 +4,5 @@
 4. Portfolio Model v1.1
 5. Portfolio Model v1.2
 6. Queue Model v1.2
+7. Portfolio Model v1.3
+8. Conference Calendar

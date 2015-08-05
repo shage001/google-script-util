@@ -11,12 +11,14 @@ Projects using some version of this library:
 4. Portfolio Model v1.1
 5. Portfolio Model v1.2
 6. Queue Model v1.2
+7. Portfolio Model v1.3
+8. Conference Calendar
 
 == BUILD INFO ==
-utc: 1438098681651
-utc_print: Tue Jul 28 2015 11:51:21 GMT-0400 (EDT)
+utc: 1438808415676
+utc_print: Wed Aug 05 2015 17:00:15 GMT-0400 (EDT)
 branch: master
-rev: 7c901b27c34a986f9c4df0c552102ee076741149
+rev: 8c757ea11e21054bb52e0b8857b594394a4b9b01
 uname: samhage
 */
 
