@@ -5,9 +5,9 @@
 /**********************************************************************************************************************
  * Returns a formatted version of the date and time for logging
  *
- * @return {string} datetime The date and time
+ * @return {string} The date and time
  */
-function getDate() {
+function getDateTime() {
   
   var currentdate = new Date(); 
   var datetime = currentdate.getDate() + "/"
@@ -17,6 +17,21 @@ function getDate() {
                + currentdate.getMinutes() + ":" 
                + currentdate.getSeconds();
   return datetime;
+}
+
+
+/**********************************************************************************************************************
+ * Returns the month, day, and year formatted according to US convention
+ *
+ * @return {string} The date
+ */
+function getUSDate() {
+  
+  var currentdate = new Date(); 
+  var date = (currentdate.getMonth()+1)  + "/"
+               + currentdate.getDate() + "/"
+               + currentdate.getFullYear();
+  return date;
 }
 
 

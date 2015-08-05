@@ -15,10 +15,10 @@ Projects using some version of this library:
 8. Conference Calendar
 
 == BUILD INFO ==
-utc: 1438808415676
-utc_print: Wed Aug 05 2015 17:00:15 GMT-0400 (EDT)
+utc: 1438808910712
+utc_print: Wed Aug 05 2015 17:08:30 GMT-0400 (EDT)
 branch: master
-rev: 8c757ea11e21054bb52e0b8857b594394a4b9b01
+rev: 0015fe70391f3f5823eaee3466ab4db68f35414c
 uname: samhage
 */
 
@@ -29,9 +29,9 @@ uname: samhage
 /**********************************************************************************************************************
  * Returns a formatted version of the date and time for logging
  *
- * @return {string} datetime The date and time
+ * @return {string} The date and time
  */
-function getDate() {
+function getDateTime() {
   
   var currentdate = new Date(); 
   var datetime = currentdate.getDate() + "/"
@@ -41,6 +41,21 @@ function getDate() {
                + currentdate.getMinutes() + ":" 
                + currentdate.getSeconds();
   return datetime;
+}
+
+
+/**********************************************************************************************************************
+ * Returns the month, day, and year formatted according to US convention
+ *
+ * @return {string} The date
+ */
+function getUSDate() {
+  
+  var currentdate = new Date(); 
+  var date = (currentdate.getMonth()+1)  + "/"
+               + currentdate.getDate() + "/"
+               + currentdate.getFullYear();
+  return date;
 }
 
 
