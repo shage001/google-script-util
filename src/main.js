@@ -80,6 +80,57 @@ function choose( n, k ) {
 /********************                              RANGE INTERACTION                               ********************/
 /**********************************************************************************************************************/
 
+
+/**********************************************************************************************************************
+ * Transposes a row to a column
+ *
+ * @param {Object[][]} data A 2D array representing a row
+ * @return {Object[][]} A 2D array representing a column with the same data
+ */
+function transposeRowToColumn( data ) {
+  
+  var height = data.length;
+  var width = ( data[0] !== null ) ? data[0].length : 0;
+  
+  // must be one row tall
+  if ( height !== 1 ) {
+    throw new Error( 'transposeRowToColumn takes a single row' );
+    return;
+  }
+  
+  var column = new Array( width );
+  for ( var i = 0; i < width; i++ ) {
+    column[i] = [ data[0][i] ];
+  }
+  return column;
+}
+
+
+/**********************************************************************************************************************
+ * Transposes a column to a row
+ *
+ * @param {Object[][]} data A 2D array representing a column
+ * @return {Object[][]} A 2D array representing a row with the same data
+ */
+function transposeColumnToRow( data ) {
+  
+  var height = data.length;
+  var width = ( data[0] !== null ) ? data[0].length : 0;
+  
+  // must be one column wide
+  if ( width != 1 ) {
+    throw new Error( 'transposeColumnToRow takes a single column' );
+    return;
+  }
+  
+  var row = [ new Array( height ) ]
+  for ( var i = 0; i < height; i++ ) {
+    row[0][i] = data[i][0];
+  }
+  return row;
+}
+
+
 /**********************************************************************************************************************
  * Pulls out the column string and row number from A1
  * notation of the cell (this is important because columns

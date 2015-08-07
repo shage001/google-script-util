@@ -13,12 +13,13 @@ Projects using some version of this library:
 6. Queue Model v1.2
 7. Portfolio Model v1.3
 8. Conference Calendar
+9. Project Pricing Tool ASCENDANCE TEST
 
 == BUILD INFO ==
-utc: 1438808910712
-utc_print: Wed Aug 05 2015 17:08:30 GMT-0400 (EDT)
+utc: 1438969508146
+utc_print: Fri Aug 07 2015 13:45:08 GMT-0400 (EDT)
 branch: master
-rev: 0015fe70391f3f5823eaee3466ab4db68f35414c
+rev: eefbd9c18af15e9f0874204133b3aa778eadadaa
 uname: samhage
 */
 
@@ -103,6 +104,57 @@ function choose( n, k ) {
 /**********************************************************************************************************************/
 /********************                              RANGE INTERACTION                               ********************/
 /**********************************************************************************************************************/
+
+
+/**********************************************************************************************************************
+ * Transposes a row to a column
+ *
+ * @param {Object[][]} data A 2D array representing a row
+ * @return {Object[][]} A 2D array representing a column with the same data
+ */
+function transposeRowToColumn( data ) {
+  
+  var height = data.length;
+  var width = ( data[0] !== null ) ? data[0].length : 0;
+  
+  // must be one row tall
+  if ( height !== 1 ) {
+    throw new Error( 'transposeRowToColumn takes a single row' );
+    return;
+  }
+  
+  var column = new Array( width );
+  for ( var i = 0; i < width; i++ ) {
+    column[i] = [ data[0][i] ];
+  }
+  return column;
+}
+
+
+/**********************************************************************************************************************
+ * Transposes a column to a row
+ *
+ * @param {Object[][]} data A 2D array representing a column
+ * @return {Object[][]} A 2D array representing a row with the same data
+ */
+function transposeColumnToRow( data ) {
+  
+  var height = data.length;
+  var width = ( data[0] !== null ) ? data[0].length : 0;
+  
+  // must be one column wide
+  if ( width != 1 ) {
+    throw new Error( 'transposeColumnToRow takes a single column' );
+    return;
+  }
+  
+  var row = [ new Array( height ) ]
+  for ( var i = 0; i < height; i++ ) {
+    row[0][i] = data[i][0];
+  }
+  return row;
+}
+
 
 /**********************************************************************************************************************
  * Pulls out the column string and row number from A1
