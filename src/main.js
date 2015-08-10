@@ -459,9 +459,14 @@ function unlock() {
  *
  * @param {string} msgText Text of the message
  * @param {string} channel Channel to send message
+ * @param {string} username Name to display as message sender
  */
 function slackCallout( msgText, channel, username ) {
   
+  if ( channel[0] !== '#' ) {
+    channel = '#' + channel;
+  }
+
   // Sets body of callout
   var body = 
       {

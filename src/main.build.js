@@ -16,10 +16,10 @@ Projects using some version of this library:
 9. Project Pricing Tool ASCENDANCE TEST
 
 == BUILD INFO ==
-utc: 1438980857056
-utc_print: Fri Aug 07 2015 16:54:17 GMT-0400 (EDT)
+utc: 1439237071762
+utc_print: Mon Aug 10 2015 16:04:31 GMT-0400 (EDT)
 branch: master
-rev: 075201fda174aff2fa32e90eb844640b475dfcde
+rev: 0014fa95d5e4560415f6cd4bc6f0e6256a497b50
 uname: samhage
 */
 
@@ -484,9 +484,14 @@ function unlock() {
  *
  * @param {string} msgText Text of the message
  * @param {string} channel Channel to send message
+ * @param {string} username Name to display as message sender
  */
 function slackCallout( msgText, channel, username ) {
   
+  if ( channel[0] !== '#' ) {
+    channel = '#' + channel;
+  }
+
   // Sets body of callout
   var body = 
       {
