@@ -16,10 +16,10 @@ Projects using some version of this library:
 9. Project Pricing Tool ASCENDANCE TEST
 
 == BUILD INFO ==
-utc: 1438969508146
-utc_print: Fri Aug 07 2015 13:45:08 GMT-0400 (EDT)
+utc: 1438980857056
+utc_print: Fri Aug 07 2015 16:54:17 GMT-0400 (EDT)
 branch: master
-rev: eefbd9c18af15e9f0874204133b3aa778eadadaa
+rev: 075201fda174aff2fa32e90eb844640b475dfcde
 uname: samhage
 */
 
@@ -35,11 +35,11 @@ uname: samhage
 function getDateTime() {
   
   var currentdate = new Date(); 
-  var datetime = currentdate.getDate() + "/"
-               + (currentdate.getMonth()+1)  + "/" 
-               + currentdate.getFullYear() + " @ "  
-               + currentdate.getHours() + ":"  
-               + currentdate.getMinutes() + ":" 
+  var datetime = currentdate.getDate() + '/'
+               + (currentdate.getMonth()+1)  + '/' 
+               + currentdate.getFullYear() + ' @ '  
+               + currentdate.getHours() + ':'  
+               + currentdate.getMinutes() + ':' 
                + currentdate.getSeconds();
   return datetime;
 }
@@ -53,8 +53,8 @@ function getDateTime() {
 function getUSDate() {
   
   var currentdate = new Date(); 
-  var date = (currentdate.getMonth()+1)  + "/"
-               + currentdate.getDate() + "/"
+  var date = (currentdate.getMonth()+1)  + '/'
+               + currentdate.getDate() + '/'
                + currentdate.getFullYear();
   return date;
 }
@@ -67,7 +67,7 @@ function getUSDate() {
  * @return {string} The formatted date and time
  */
 function formatDate( date ) { 
-  return Utilities.formatDate( date, "GMT", "YYYY-MM-DD HH:MM:SS" );
+  return Utilities.formatDate( date, 'GMT', 'YYYY-MM-DD HH:MM:SS' );
 }
 
 
@@ -194,7 +194,7 @@ function findMatch( startCell, sheet, value ) {
   
   // extract data from desired column to improve speed
   var column = splitCell( startCell )[0];
-  var range = sheet.getRange( startCell + ":" + column );
+  var range = sheet.getRange( startCell + ':' + column );
   var columnValues = range.getValues();
   
   var count = 0;
@@ -266,7 +266,7 @@ function isEmpty( range ) {
   // return false as soon as content is found
   for ( var i = 0; i < numRows; i++ ) {
     for ( var j = 0; j < numColumns; j++ ) {
-      if ( data[i][j] !== "" ) {
+      if ( data[i][j] !== '' ) {
         return false;
       }
     }
@@ -305,7 +305,7 @@ function smartSetValues( range, data ) {
       resizedData[i] = new Array( numEmptyCols );
       for ( var j = 0; j < numEmptyCols; j++ ) {
         if ( i >= numDataRows || j >= numDataCols ) {
-          resizedData[i][j] = "";
+          resizedData[i][j] = '';
         }
         else {
           resizedData[i][j] = data[i][j];
@@ -334,9 +334,9 @@ function importByValue( spreadsheet_key, range_string ) {
   
   var sourceSpreadsheetId = spreadsheet_key;
   // pull out sheet name and import range
-  var data = range_string.split( "!" );
+  var data = range_string.split( '!' );
   var sourceSheetName = data[0];
-  var ranges = data[1].split( ":" );
+  var ranges = data[1].split( ':' );
   var startRange = ranges[0];
   var endRange = ranges[1];
   
@@ -373,7 +373,7 @@ function importByValue( spreadsheet_key, range_string ) {
  * @param {string} key String representation of destination spreadsheet ID
  * @param {string} sheet String representation of destination sheet name
  * @param {string} cell A1 notation for destination cell
- * @param {string} source Range of the form "A1:A1"
+ * @param {string} source Range of the form 'A1:A1'
  */
 function exportByValue( key, sheet, cell, range ) {
   
@@ -389,8 +389,8 @@ function exportByValue( key, sheet, cell, range ) {
   var destStartCol = letterToColumn( destCell.charAt(0) );
   // get source sheet information
   var sourceSheet = SpreadsheetApp.getActiveSheet();
-  // split source range on ":"
-  var exportData = exportRange.split( ":" );
+  // split source range on ':'
+  var exportData = exportRange.split( ':' );
   var exportStartA1 = exportData[0]; // start of source range in A1 notation
   var exportEndA1 = exportData[1]; // end of source range
   var sourceStartRow = exportStartA1.slice(1);
@@ -426,7 +426,7 @@ function exportByValue( key, sheet, cell, range ) {
  */
 function navToSheet( destSheet ) {
   var destSheetName = destSheet.getName();
-  Logger.log( "Navigating to " + destSheet.getName() );
+  Logger.log( 'Navigating to ' + destSheet.getName() );
   SpreadsheetApp.setActiveSheet( destSheet );  
 }
 
@@ -485,27 +485,27 @@ function unlock() {
  * @param {string} msgText Text of the message
  * @param {string} channel Channel to send message
  */
-function slackCallout( msgText, channel ) {
+function slackCallout( msgText, channel, username ) {
   
   // Sets body of callout
   var body = 
       {
-        "text":msgText,
-        "channel":channel,
-        "username":"Reminder Bot",
-        "parse":"full"
+        'text': msgText,
+        'channel': channel,
+        'username': username,
+        'parse': 'full'
       };
   body = JSON.stringify( body );
   
   // Sets HttpRequest options
   var options =
       {
-        "method":"post",
-        "payload":body
+        'method':'post',
+        'payload':body
       };
   
   // Make the callout
-  UrlFetchApp.fetch( "https://hooks.slack.com/services/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", options );
+  UrlFetchApp.fetch( 'https://hooks.slack.com/services/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', options );
 }
 
 
@@ -529,7 +529,7 @@ function multiplyMatrices( a, b ) {
   
   // check matrix dimensions
   if ( aCols !== bRows ) {
-    Logger.log( "Matrices are of incompatible dimensions :(" );
+    Logger.log( 'Matrices are of incompatible dimensions :(' );
     return false;
   }
   var productMatrix = new Array( aRows );
