@@ -16,10 +16,10 @@ Projects using some version of this library:
 9. Project Pricing Tool ASCENDANCE TEST
 
 == BUILD INFO ==
-utc: 1439237071762
-utc_print: Mon Aug 10 2015 16:04:31 GMT-0400 (EDT)
+utc: 1439387743340
+utc_print: Wed Aug 12 2015 09:55:43 GMT-0400 (EDT)
 branch: master
-rev: 0014fa95d5e4560415f6cd4bc6f0e6256a497b50
+rev: 17bcf4fd405b859205aabd3548326aae040a3e90
 uname: samhage
 */
 
@@ -225,7 +225,7 @@ function letterToColumn( letter ) {
 
 
 /**********************************************************************************************************************
- * Check if one row is contained in another
+ * Check if one range is contained in another
  *
  * @param {range} innerRange The inner range
  * @param {range} outerRange The outer range
@@ -244,10 +244,9 @@ function isRangeContained( innerRange, outerRange ) {
   var outerEndColumn = outerRange.getLastColumn();
 
   // check for containment
-  var isContained = innerStartRow >= outerStartRow && innerStartColumn >= outerStartColumn
-                                                   && innerEndRow <= outerEndRow
-                                                   && innerEndColumn <= outerEndColumn;
-  return isContained;
+  return innerStartRow >= outerStartRow && innerStartColumn >= outerStartColumn
+                                        && innerEndRow <= outerEndRow
+                                        && innerEndColumn <= outerEndColumn;
 }
 
 

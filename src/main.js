@@ -200,7 +200,7 @@ function letterToColumn( letter ) {
 
 
 /**********************************************************************************************************************
- * Check if one row is contained in another
+ * Check if one range is contained in another
  *
  * @param {range} innerRange The inner range
  * @param {range} outerRange The outer range
@@ -219,10 +219,9 @@ function isRangeContained( innerRange, outerRange ) {
   var outerEndColumn = outerRange.getLastColumn();
 
   // check for containment
-  var isContained = innerStartRow >= outerStartRow && innerStartColumn >= outerStartColumn
-                                                   && innerEndRow <= outerEndRow
-                                                   && innerEndColumn <= outerEndColumn;
-  return isContained;
+  return innerStartRow >= outerStartRow && innerStartColumn >= outerStartColumn
+                                        && innerEndRow <= outerEndRow
+                                        && innerEndColumn <= outerEndColumn;
 }
 
 
